@@ -18,6 +18,10 @@ command -v kpackagetool6 >/dev/null || { echo "kpackagetool6 not found (is Plasm
 echo "==> Installing widget..."
 kpackagetool6 -t Plasma/Applet -u "$DIR" 2>/dev/null || kpackagetool6 -t Plasma/Applet -i "$DIR"
 
+# Icon
+mkdir -p "$HOME/.local/share/icons/hicolor/scalable/apps"
+cp "$DIR/icon/speedtest-gauge.svg" "$HOME/.local/share/icons/hicolor/scalable/apps/"
+
 # 2. Ookla CLI
 if [ -x "$BIN" ]; then
     echo "==> Ookla CLI already installed."
