@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name=""/>
+  <group name="General">
+    <entry name="serverId" type="String"><default></default></entry>
+    <entry name="maxSpeed" type="Int"><default>120</default></entry>
+    <entry name="autoMinutes" type="Int"><default>0</default></entry>
+    <entry name="theme" type="Int"><default>0</default></entry>
+    <entry name="customDownA" type="Color"><default>#27D0F9</default></entry>
+    <entry name="customDownB" type="Color"><default>#0882D3</default></entry>
+    <entry name="customUpA" type="Color"><default>#E0690C</default></entry>
+    <entry name="customUpB" type="Color"><default>#FFB347</default></entry>
+  </group>
+</kcfg>

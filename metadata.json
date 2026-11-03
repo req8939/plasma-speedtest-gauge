@@ -1,0 +1,19 @@
+{
+    "KPlugin": {
+        "Id": "req8939.speedtest",
+        "Name": "Speedtest Gauge",
+        "Description": "Internet speed test with live animated gauges, themes and settings",
+        "Icon": "network-wireless",
+        "Authors": [
+            {
+                "Name": "Req8939"
+            }
+        ],
+        "Category": "System Information",
+        "Version": "1.0.0",
+        "License": "GPL-2.0-or-later",
+        "Website": "https://github.com/req8939/plasma-speedtest-gauge"
+    },
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-API-Minimum-Version": "6.0"
+}
