@@ -56,7 +56,15 @@ In the **General** tab:
 | **Gauge max speed** | The speed (Mbit/s) at which the arc is 100% full. Set it close to your plan speed |
 | **Auto test every** | Run a test automatically every X minutes. `0` = manual only |
 
-## 📦 Requirements
+## 🚀 Quick install
+
+    git clone https://github.com/req8939/plasma-speedtest-gauge.git
+    cd plasma-speedtest-gauge
+    ./install.sh
+
+The script installs the widget and downloads the official Ookla Speedtest CLI to `~/.local/bin/ookla-speedtest` if it is missing. To remove it: `./install.sh --uninstall`.
+
+## 📦 Manual requirements
 
 The widget uses the **official Ookla Speedtest CLI** (not `speedtest-cli`). Its license does not allow redistribution, so install it yourself:
 
