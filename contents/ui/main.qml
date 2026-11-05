@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Effects
 import org.kde.plasma.plasmoid
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.components as PlasmaComponents
@@ -170,12 +169,27 @@ PlasmoidItem {
             anchors.fill: parent
             anchors.margins: 8
 
-            // Forma de la tarjeta (fuente del efecto de sombra)
+            // Sombra: capas translúcidas detrás de la tarjeta (sin shaders)
+            Repeater {
+                model: Plasmoid.configuration.shadow === 0 ? 0 : (Plasmoid.configuration.shadow === 2 ? 5 : 3)
+                Rectangle {
+                    readonly property real k: (index + 1) * 3
+                    readonly property real off: Plasmoid.configuration.shadow === 2 ? 7 : 2
+                    anchors.fill: parent
+                    anchors.leftMargin: -k
+                    anchors.rightMargin: -k
+                    anchors.topMargin: -k + off
+                    anchors.bottomMargin: -k - off
+                    radius: root.radiusPx + k
+                    color: Qt.rgba(0, 0, 0, (Plasmoid.configuration.shadow === 2 ? 0.16 : 0.11) * root.cardAlpha)
+                }
+            }
+
+            // Tarjeta: la opacidad afecta solo al fondo, no al contenido
             Item {
-                id: shape
+                id: card
                 anchors.fill: parent
-                visible: false
-                layer.enabled: true
+                opacity: root.cardAlpha
 
                 // 0 Tinte
                 Rectangle {
@@ -234,19 +248,6 @@ PlasmoidItem {
                         GradientStop { position: 1.0; color: root.ta(0.25) }
                     }
                 }
-            }
-
-            // Tarjeta + sombra; la opacidad afecta solo a la tarjeta
-            MultiEffect {
-                source: shape
-                anchors.fill: shape
-                opacity: root.cardAlpha
-                shadowEnabled: Plasmoid.configuration.shadow > 0
-                shadowColor: "#000000"
-                shadowOpacity: Plasmoid.configuration.shadow === 2 ? 0.75 : 0.5
-                shadowBlur: Plasmoid.configuration.shadow === 2 ? 1.0 : 0.6
-                shadowVerticalOffset: Plasmoid.configuration.shadow === 2 ? 10 : 4
-                autoPaddingEnabled: true
             }
 
             // Contenido (siempre nítido)
