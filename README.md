@@ -11,7 +11,7 @@
 <p align="center">
   <img alt="Plasma 6" src="https://img.shields.io/badge/KDE%20Plasma-6-1D99F3?style=flat-square&logo=kde&logoColor=white">
   <img alt="License" src="https://img.shields.io/badge/license-GPL--2.0--or--later-green?style=flat-square">
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-orange?style=flat-square">
+  <img alt="Version" src="https://img.shields.io/badge/version-1.1.0-orange?style=flat-square">
 </p>
 
 ---
@@ -23,6 +23,7 @@
 - **Server name and last test time** shown right in the widget
 - **5 color themes** plus a fully **custom** option
 - **Settings page**: fixed server, gauge scale and automatic tests
+- **Card tab**: 5 materials (Tint, Glass, Liquid glass, Solid, Atmosphere), glass tint, opacity, corner radius, shadow, glass edge and compositor blur
 - Compact, glass-style design that looks good on any wallpaper
 
 ## 🎨 Themes

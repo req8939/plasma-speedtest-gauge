@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Effects
 import org.kde.plasma.plasmoid
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.components as PlasmaComponents
@@ -9,6 +10,7 @@ import org.kde.kirigami as Kirigami
 PlasmoidItem {
     id: root
 
+    // ---- Colores ----
     readonly property var palettes: [
         {cyan: "#27D0F9", blue: "#0882D3", orange: "#E0690C", orange2: "#FFB347"},
         {cyan: "#FF5CE1", blue: "#8A2BE2", orange: "#7DF9FF", orange2: "#2F80ED"},
@@ -28,10 +30,24 @@ PlasmoidItem {
     readonly property color cDark: "#101010"
     readonly property color cWhite: "#F0F0F0"
 
+    // ---- Tarjeta ----
+    readonly property int mat: Plasmoid.configuration.material
+    readonly property real cardAlpha: Plasmoid.configuration.cardOpacity / 100
+    readonly property int radiusPx: Plasmoid.configuration.cornerRadius
+    readonly property bool edgeOn: Plasmoid.configuration.glassEdge
+    readonly property int tintIdx: Plasmoid.configuration.glassTint
+    readonly property color tintBase: tintIdx === 0 ? "#FFFFFF"
+        : tintIdx === 1 ? "#DCEBFF"
+        : tintIdx === 2 ? "#232838"
+        : tintIdx === 3 ? cBlue
+        : Plasmoid.configuration.customGlass
+    readonly property real tintGain: tintIdx === 2 ? 3.0 : 1.0
+    function ta(al) { return Qt.rgba(tintBase.r, tintBase.g, tintBase.b, Math.min(1, al * tintGain)) }
+
     // ---- Ajustes ----
-    property string serverId: Plasmoid.configuration.serverId     // vacío = automático
-    property real maxSpeed: Plasmoid.configuration.maxSpeed      // Mbit/s al 100% del medidor
-    property int autoMinutes: Plasmoid.configuration.autoMinutes      // 0 = solo manual
+    property string serverId: Plasmoid.configuration.serverId
+    property real maxSpeed: Plasmoid.configuration.maxSpeed
+    property int autoMinutes: Plasmoid.configuration.autoMinutes
 
     readonly property string outFile: "/tmp/thot-speedtest.jsonl"
     property int pollN: 0
@@ -49,7 +65,8 @@ PlasmoidItem {
     readonly property color pingColor: pingNum < 0 ? cWhite
         : pingNum < 40 ? cCyan : pingNum < 100 ? cOrange : "#FF4D4D"
 
-    Plasmoid.backgroundHints: PlasmaCore.Types.NoBackground
+    Plasmoid.backgroundHints: Plasmoid.configuration.compositorGlass
+        ? PlasmaCore.Types.DefaultBackground : PlasmaCore.Types.NoBackground
     Plasmoid.icon: "network-wireless"
     toolTipMainText: "Speedtest"
     toolTipSubText: "↓ " + down + "  ↑ " + up + " Mbit/s  ping " + ping + " ms"
@@ -61,7 +78,6 @@ PlasmoidItem {
         onTriggered: root.runTest()
     }
 
-    // Lee la última línea de progreso cada 400 ms mientras mide
     Timer {
         interval: 400
         running: root.running
@@ -146,138 +162,189 @@ PlasmoidItem {
     }
 
     fullRepresentation: Item {
-        Layout.minimumWidth: Kirigami.Units.gridUnit * 14
-        Layout.minimumHeight: Kirigami.Units.gridUnit * 11
+        Layout.minimumWidth: Kirigami.Units.gridUnit * 14.5
+        Layout.minimumHeight: Kirigami.Units.gridUnit * 11.5
 
-        Rectangle {
+        Item {
+            id: cardWrap
             anchors.fill: parent
-            anchors.margins: 2
-            radius: 24
-            color: "transparent"
-            border.width: 4
-            border.color: Qt.rgba(root.cCyan.r, root.cCyan.g, root.cCyan.b, 0.18)
-        }
-        Rectangle {
-            anchors.fill: parent
-            anchors.margins: 6
-            radius: 20
-            border.width: 2
-            border.color: root.cCyan
-            gradient: Gradient {
-                GradientStop { position: 0.0; color: Qt.rgba(root.cBlue.r, root.cBlue.g, root.cBlue.b, 0.45) }
-                GradientStop { position: 0.55; color: Qt.rgba(0.10, 0.08, 0.30, 0.70) }
-                GradientStop { position: 1.0; color: Qt.rgba(0.06, 0.06, 0.06, 0.88) }
-            }
-        }
-        Rectangle {
-            width: parent.width * 0.5
-            height: 3
-            radius: 2
-            anchors.top: parent.top
-            anchors.topMargin: 6
-            anchors.horizontalCenter: parent.horizontalCenter
-            gradient: Gradient {
-                orientation: Gradient.Horizontal
-                GradientStop { position: 0.0; color: "transparent" }
-                GradientStop { position: 0.5; color: root.cCyan }
-                GradientStop { position: 1.0; color: "transparent" }
-            }
-        }
+            anchors.margins: 8
 
-        ColumnLayout {
-            anchors.fill: parent
-            anchors.margins: 12
-            spacing: 6
+            // Forma de la tarjeta (fuente del efecto de sombra)
+            Item {
+                id: shape
+                anchors.fill: parent
+                visible: false
+                layer.enabled: true
 
-            PlasmaComponents.Label {
-                text: "SPEEDTEST"
-                color: root.cWhite
-                font.bold: true
-                font.letterSpacing: 4
-                font.pointSize: Kirigami.Theme.defaultFont.pointSize * 0.95
-                Layout.alignment: Qt.AlignHCenter
-            }
-
-            RowLayout {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                spacing: 4
-
-                Gauge {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    title: "⬇ BAJADA"
-                    value: root.downNum / root.maxSpeed
-                    valueText: root.down
-                    colorA: root.cCyan
-                    colorB: root.cBlue
-                    busy: false
+                // 0 Tinte
+                Rectangle {
+                    anchors.fill: parent; radius: root.radiusPx; visible: root.mat === 0
+                    border.width: root.edgeOn ? 2 : 0; border.color: root.cCyan
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: Qt.rgba(root.cBlue.r, root.cBlue.g, root.cBlue.b, 0.45) }
+                        GradientStop { position: 0.55; color: Qt.rgba(0.10, 0.08, 0.30, 0.70) }
+                        GradientStop { position: 1.0; color: Qt.rgba(0.06, 0.06, 0.06, 0.88) }
+                    }
                 }
-                Gauge {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    title: "⬆ SUBIDA"
-                    value: root.upNum / root.maxSpeed
-                    valueText: root.up
-                    colorA: root.cOrange
-                    colorB: root.cOrange2
-                    busy: false
+                // 1 Cristal
+                Rectangle {
+                    anchors.fill: parent; radius: root.radiusPx; visible: root.mat === 1
+                    border.width: root.edgeOn ? 1.5 : 0; border.color: Qt.rgba(1, 1, 1, 0.38)
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: root.ta(0.20) }
+                        GradientStop { position: 1.0; color: root.ta(0.06) }
+                    }
                 }
-            }
-
-            Rectangle {
-                Layout.alignment: Qt.AlignHCenter
-                radius: height / 2
-                color: Qt.rgba(1, 1, 1, 0.07)
-                border.width: 1
-                border.color: root.pingColor
-                implicitWidth: pingRow.implicitWidth + 24
-                implicitHeight: pingRow.implicitHeight + 8
-                RowLayout {
-                    id: pingRow
-                    anchors.centerIn: parent
-                    spacing: 8
-                    Rectangle { width: 8; height: 8; radius: 4; color: root.pingColor }
-                    PlasmaComponents.Label {
-                        text: "PING  " + root.ping + " ms"
-                        color: root.cWhite
-                        font.bold: true
+                // 2 Cristal líquido
+                Item {
+                    anchors.fill: parent; visible: root.mat === 2
+                    Rectangle {
+                        anchors.fill: parent; radius: root.radiusPx
+                        border.width: root.edgeOn ? 1.5 : 0; border.color: Qt.rgba(1, 1, 1, 0.55)
+                        gradient: Gradient {
+                            GradientStop { position: 0.0; color: root.ta(0.32) }
+                            GradientStop { position: 0.5; color: root.ta(0.07) }
+                            GradientStop { position: 1.0; color: root.ta(0.16) }
+                        }
+                    }
+                    Rectangle {
+                        anchors.fill: parent; anchors.margins: 4
+                        radius: Math.max(0, root.radiusPx - 4)
+                        color: "transparent"
+                        visible: root.edgeOn
+                        border.width: 1; border.color: Qt.rgba(1, 1, 1, 0.18)
+                    }
+                }
+                // 3 Sólido
+                Rectangle {
+                    anchors.fill: parent; radius: root.radiusPx; visible: root.mat === 3
+                    color: "#15181F"
+                    border.width: root.edgeOn ? 1 : 0
+                    border.color: Qt.rgba(root.cCyan.r, root.cCyan.g, root.cCyan.b, 0.45)
+                }
+                // 4 Atmósfera
+                Rectangle {
+                    anchors.fill: parent; radius: root.radiusPx; visible: root.mat === 4
+                    border.width: root.edgeOn ? 1.5 : 0
+                    border.color: Qt.rgba(root.cCyan.r, root.cCyan.g, root.cCyan.b, 0.7)
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: Qt.rgba(root.cCyan.r, root.cCyan.g, root.cCyan.b, 0.40) }
+                        GradientStop { position: 0.5; color: Qt.rgba(root.cBlue.r, root.cBlue.g, root.cBlue.b, 0.35) }
+                        GradientStop { position: 1.0; color: root.ta(0.25) }
                     }
                 }
             }
 
-            PlasmaComponents.Label {
-                text: "🌐 " + root.server + (root.lastTime ? "  ·  " + root.lastTime : "")
-                color: root.cWhite
-                opacity: 0.6
-                elide: Text.ElideRight
-                horizontalAlignment: Text.AlignHCenter
-                Layout.fillWidth: true
+            // Tarjeta + sombra; la opacidad afecta solo a la tarjeta
+            MultiEffect {
+                source: shape
+                anchors.fill: shape
+                opacity: root.cardAlpha
+                shadowEnabled: Plasmoid.configuration.shadow > 0
+                shadowColor: "#000000"
+                shadowOpacity: Plasmoid.configuration.shadow === 2 ? 0.75 : 0.5
+                shadowBlur: Plasmoid.configuration.shadow === 2 ? 1.0 : 0.6
+                shadowVerticalOffset: Plasmoid.configuration.shadow === 2 ? 10 : 4
+                autoPaddingEnabled: true
             }
 
-            Rectangle {
-                Layout.alignment: Qt.AlignHCenter
-                implicitWidth: btnLabel.implicitWidth + 40
-                implicitHeight: btnLabel.implicitHeight + 12
-                radius: height / 2
-                color: root.running ? "#4a4a4a" : (area.containsMouse ? root.cCyan : root.cOrange)
-                Behavior on color { ColorAnimation { duration: 150 } }
-                scale: area.pressed ? 0.96 : 1
-                Behavior on scale { NumberAnimation { duration: 80 } }
+            // Contenido (siempre nítido)
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: 10
+                spacing: 6
+
                 PlasmaComponents.Label {
-                    id: btnLabel
-                    anchors.centerIn: parent
-                    text: root.running ? "Probando..." : "⟳  Iniciar prueba"
-                    color: root.cDark
+                    text: "SPEEDTEST"
+                    color: root.cWhite
                     font.bold: true
+                    font.letterSpacing: 4
+                    font.pointSize: Kirigami.Theme.defaultFont.pointSize * 0.95
+                    Layout.alignment: Qt.AlignHCenter
                 }
-                MouseArea {
-                    id: area
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    enabled: !root.running
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: root.runTest()
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    spacing: 4
+
+                    Gauge {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        title: "⬇ BAJADA"
+                        value: root.downNum / root.maxSpeed
+                        valueText: root.down
+                        colorA: root.cCyan
+                        colorB: root.cBlue
+                        busy: false
+                    }
+                    Gauge {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        title: "⬆ SUBIDA"
+                        value: root.upNum / root.maxSpeed
+                        valueText: root.up
+                        colorA: root.cOrange
+                        colorB: root.cOrange2
+                        busy: false
+                    }
+                }
+
+                Rectangle {
+                    Layout.alignment: Qt.AlignHCenter
+                    radius: height / 2
+                    color: Qt.rgba(1, 1, 1, 0.07)
+                    border.width: 1
+                    border.color: root.pingColor
+                    implicitWidth: pingRow.implicitWidth + 24
+                    implicitHeight: pingRow.implicitHeight + 8
+                    RowLayout {
+                        id: pingRow
+                        anchors.centerIn: parent
+                        spacing: 8
+                        Rectangle { width: 8; height: 8; radius: 4; color: root.pingColor }
+                        PlasmaComponents.Label {
+                            text: "PING  " + root.ping + " ms"
+                            color: root.cWhite
+                            font.bold: true
+                        }
+                    }
+                }
+
+                PlasmaComponents.Label {
+                    text: "🌐 " + root.server + (root.lastTime ? "  ·  " + root.lastTime : "")
+                    color: root.cWhite
+                    opacity: 0.65
+                    elide: Text.ElideRight
+                    horizontalAlignment: Text.AlignHCenter
+                    Layout.fillWidth: true
+                }
+
+                Rectangle {
+                    Layout.alignment: Qt.AlignHCenter
+                    implicitWidth: btnLabel.implicitWidth + 40
+                    implicitHeight: btnLabel.implicitHeight + 12
+                    radius: height / 2
+                    color: root.running ? "#4a4a4a" : (area.containsMouse ? root.cCyan : root.cOrange)
+                    Behavior on color { ColorAnimation { duration: 150 } }
+                    scale: area.pressed ? 0.96 : 1
+                    Behavior on scale { NumberAnimation { duration: 80 } }
+                    PlasmaComponents.Label {
+                        id: btnLabel
+                        anchors.centerIn: parent
+                        text: root.running ? "Probando..." : "⟳  Iniciar prueba"
+                        color: root.cDark
+                        font.bold: true
+                    }
+                    MouseArea {
+                        id: area
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        enabled: !root.running
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: root.runTest()
+                    }
                 }
             }
         }
