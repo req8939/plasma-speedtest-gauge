@@ -9,6 +9,8 @@ import "strings.js" as S
 
 PlasmoidItem {
     id: root
+    property bool showSettings: false
+    readonly property var cfg: Plasmoid.configuration
 
     readonly property string lang: {
         var i = Plasmoid.configuration.language
@@ -172,8 +174,8 @@ PlasmoidItem {
     }
 
     fullRepresentation: Item {
-        Layout.minimumWidth: Kirigami.Units.gridUnit * 14.5
-        Layout.minimumHeight: Kirigami.Units.gridUnit * 11.5
+        Layout.minimumWidth: root.showSettings ? Kirigami.Units.gridUnit * 21 : Kirigami.Units.gridUnit * 14.5
+        Layout.minimumHeight: root.showSettings ? Kirigami.Units.gridUnit * 26 : Kirigami.Units.gridUnit * 11.5
 
         Item {
             id: cardWrap
@@ -265,6 +267,7 @@ PlasmoidItem {
             ColumnLayout {
                 anchors.fill: parent
                 anchors.margins: 10
+                visible: !root.showSettings
                 spacing: 6
 
                 PlasmaComponents.Label {
@@ -357,6 +360,35 @@ PlasmoidItem {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: root.runTest()
                     }
+                }
+            }
+
+            SettingsView {
+                anchors.fill: parent
+                anchors.margins: 10
+                visible: root.showSettings
+                app: root
+            }
+
+            // Botón ⚙ / ✕
+            Rectangle {
+                width: 28; height: 28; radius: 14
+                anchors.top: parent.top
+                anchors.right: parent.right
+                anchors.margins: 8
+                color: gearArea.containsMouse ? Qt.rgba(1, 1, 1, 0.20) : Qt.rgba(1, 1, 1, 0.06)
+                PlasmaComponents.Label {
+                    anchors.centerIn: parent
+                    text: root.showSettings ? "✕" : "⚙"
+                    color: root.cWhite
+                    font.pointSize: 11
+                }
+                MouseArea {
+                    id: gearArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: root.showSettings = !root.showSettings
                 }
             }
         }

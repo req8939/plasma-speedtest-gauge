@@ -54,7 +54,11 @@ var D = {
   "DOWNLOAD": "BAJADA",
   "UPLOAD": "SUBIDA",
   "Start test": "Iniciar prueba",
-  "Language:": "Idioma:"
+  "Language:": "Idioma:",
+  "General": "General",
+  "Card": "Tarjeta",
+  "Settings": "Ajustes",
+  "Back": "Volver"
  },
  "pt_BR": {
   "Ready to test": "Pronto para medir",
@@ -109,7 +113,11 @@ var D = {
   "DOWNLOAD": "DOWNLOAD",
   "UPLOAD": "CARREGAR",
   "Start test": "Iniciar teste",
-  "Language:": "Idioma:"
+  "Language:": "Idioma:",
+  "General": "Geral",
+  "Card": "Cartão",
+  "Settings": "Configurações",
+  "Back": "Voltar"
  }
 };
 
