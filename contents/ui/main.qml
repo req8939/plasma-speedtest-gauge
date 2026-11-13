@@ -9,75 +9,6 @@ import "strings.js" as S
 
 PlasmoidItem {
     id: root
-    property bool showSettings: false
-    Plasmoid.contextualActions: [
-        PlasmaCore.Action {
-            text: root.tr("Settings")
-            icon.name: "configure"
-            onTriggered: root.showSettings = !root.showSettings
-        },
-        PlasmaCore.Action {
-            text: "🌐  Auto / Automático"
-            checkable: true
-            checked: root.cfg.language === 0
-            onTriggered: root.cfg.language = 0
-        },
-        PlasmaCore.Action {
-            text: "🌐  English"
-            checkable: true
-            checked: root.cfg.language === 1
-            onTriggered: root.cfg.language = 1
-        },
-        PlasmaCore.Action {
-            text: "🌐  Español"
-            checkable: true
-            checked: root.cfg.language === 2
-            onTriggered: root.cfg.language = 2
-        },
-        PlasmaCore.Action {
-            text: "🌐  Português (Brasil)"
-            checkable: true
-            checked: root.cfg.language === 3
-            onTriggered: root.cfg.language = 3
-        },
-        PlasmaCore.Action {
-            text: "🎨  " + root.tr("Req8939 (blue · cyan · orange)")
-            checkable: true
-            checked: root.cfg.theme === 0
-            onTriggered: root.cfg.theme = 0
-        },
-        PlasmaCore.Action {
-            text: "🎨  " + root.tr("Neon magenta")
-            checkable: true
-            checked: root.cfg.theme === 1
-            onTriggered: root.cfg.theme = 1
-        },
-        PlasmaCore.Action {
-            text: "🎨  " + root.tr("Amazonas (green · yellow)")
-            checkable: true
-            checked: root.cfg.theme === 2
-            onTriggered: root.cfg.theme = 2
-        },
-        PlasmaCore.Action {
-            text: "🎨  " + root.tr("Fire")
-            checkable: true
-            checked: root.cfg.theme === 3
-            onTriggered: root.cfg.theme = 3
-        },
-        PlasmaCore.Action {
-            text: "🎨  " + root.tr("Ice")
-            checkable: true
-            checked: root.cfg.theme === 4
-            onTriggered: root.cfg.theme = 4
-        },
-        PlasmaCore.Action {
-            text: "🎨  " + root.tr("Custom")
-            checkable: true
-            checked: root.cfg.theme === 5
-            onTriggered: root.cfg.theme = 5
-        }
-    ]
-    readonly property var cfg: Plasmoid.configuration
 
     readonly property string lang: {
         var i = Plasmoid.configuration.language
@@ -241,8 +172,8 @@ PlasmoidItem {
     }
 
     fullRepresentation: Item {
-        Layout.minimumWidth: root.showSettings ? Kirigami.Units.gridUnit * 21 : Kirigami.Units.gridUnit * 14.5
-        Layout.minimumHeight: root.showSettings ? Kirigami.Units.gridUnit * 26 : Kirigami.Units.gridUnit * 11.5
+        Layout.minimumWidth: Kirigami.Units.gridUnit * 14.5
+        Layout.minimumHeight: Kirigami.Units.gridUnit * 11.5
 
         Item {
             id: cardWrap
@@ -334,7 +265,6 @@ PlasmoidItem {
             ColumnLayout {
                 anchors.fill: parent
                 anchors.margins: 10
-                visible: !root.showSettings
                 spacing: 6
 
                 PlasmaComponents.Label {
@@ -427,35 +357,6 @@ PlasmoidItem {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: root.runTest()
                     }
-                }
-            }
-
-            SettingsView {
-                anchors.fill: parent
-                anchors.margins: 10
-                visible: root.showSettings
-                app: root
-            }
-
-            // Botón ⚙ / ✕
-            Rectangle {
-                width: 28; height: 28; radius: 14
-                anchors.top: parent.top
-                anchors.right: parent.right
-                anchors.margins: 8
-                color: gearArea.containsMouse ? Qt.rgba(1, 1, 1, 0.20) : Qt.rgba(1, 1, 1, 0.06)
-                PlasmaComponents.Label {
-                    anchors.centerIn: parent
-                    text: root.showSettings ? "✕" : "⚙"
-                    color: root.cWhite
-                    font.pointSize: 11
-                }
-                MouseArea {
-                    id: gearArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: root.showSettings = !root.showSettings
                 }
             }
         }

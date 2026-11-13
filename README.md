@@ -11,7 +11,7 @@
 <p align="center">
   <img alt="Plasma 6" src="https://img.shields.io/badge/KDE%20Plasma-6-1D99F3?style=flat-square&logo=kde&logoColor=white">
   <img alt="License" src="https://img.shields.io/badge/license-GPL--2.0--or--later-green?style=flat-square">
-  <img alt="Version" src="https://img.shields.io/badge/version-1.3.0-orange?style=flat-square">
+  <img alt="Version" src="https://img.shields.io/badge/version-1.2.0-orange?style=flat-square">
 </p>
 
 ---
@@ -48,10 +48,6 @@ Each theme uses four colors: two for **download** (light and dark) and two for *
 > 💡 Choose **Custom** in the theme list to unlock the four color buttons and pick your own colors.
 
 ## ⚙️ Settings
-
-Settings live inside the widget: click the **⚙ gear button**, or right click → **Settings**. Language and color themes are also in the right-click menu. Everything follows the language you choose (English, Español, Português).
-
-### Options
 
 In the **General** tab:
 
