@@ -63,7 +63,10 @@ KCM.SimpleKCM {
             Kirigami.FormData.label: tr("Automatically test every:")
             from: 0; to: 1440; stepSize: 5
             editable: true
-            textFromValue: function(v) { return v === 0 ? tr("Never (manual)") : v + " min" }
+            textFromValue: (function(never) {
+                return function(v) { return v === 0 ? never : v + " min" }
+            })(tr("Never (manual)"))
+            valueFromText: function(text) { var n = parseInt(text); return isNaN(n) ? 0 : n }
         }
     }
 }
