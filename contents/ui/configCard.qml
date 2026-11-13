@@ -2,10 +2,22 @@ import QtQuick
 import QtQuick.Controls as QQC2
 import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
+import "strings.js" as S
+import org.kde.plasma.plasmoid
 import org.kde.kcmutils as KCM
 import org.kde.kquickcontrols as KQC
 
 KCM.SimpleKCM {
+    function storedLang() { try { return Plasmoid.configuration.language } catch (e) { return 0 } }
+    readonly property string lang: {
+        var i = storedLang()
+        if (i === 1) return "en"
+        if (i === 2) return "es"
+        if (i === 3) return "pt_BR"
+        var n = Qt.locale().name
+        return n.indexOf("es") === 0 ? "es" : (n.indexOf("pt") === 0 ? "pt_BR" : "en")
+    }
+    function tr(s) { return S.tr(lang, s) }
     property int cfg_material: 0
     property alias cfg_cardOpacity: opacSlider.value
     property alias cfg_cornerRadius: radSlider.value
@@ -15,7 +27,7 @@ KCM.SimpleKCM {
     property alias cfg_glassTint: tintBox.currentIndex
     property alias cfg_customGlass: tintColor.color
 
-    readonly property var names: [i18n("Tint"), i18n("Glass"), i18n("Liquid glass"), i18n("Solid"), i18n("Atmosphere")]
+    readonly property var names: [tr("Tint"), tr("Glass"), tr("Liquid glass"), tr("Solid"), tr("Atmosphere")]
     readonly property var fills: [
         Qt.rgba(0.10, 0.10, 0.28, 0.80), Qt.rgba(1, 1, 1, 0.14), Qt.rgba(1, 1, 1, 0.22),
         Qt.rgba(0.08, 0.09, 0.12, 1.0), Qt.rgba(0.10, 0.55, 0.50, 0.65)]
@@ -27,7 +39,7 @@ KCM.SimpleKCM {
         spacing: Kirigami.Units.largeSpacing
 
         QQC2.Label {
-            text: i18n(i18n(i18n("MATERIAL")))
+            text: tr(tr(tr("MATERIAL")))
             font.bold: true
             Layout.alignment: Qt.AlignHCenter
             Layout.topMargin: Kirigami.Units.largeSpacing
@@ -78,55 +90,55 @@ KCM.SimpleKCM {
         Kirigami.FormLayout {
             Layout.fillWidth: true
 
-            Kirigami.Separator { Kirigami.FormData.isSection: true; Kirigami.FormData.label: i18n("GLASS TINT") }
+            Kirigami.Separator { Kirigami.FormData.isSection: true; Kirigami.FormData.label: tr("GLASS TINT") }
 
             QQC2.ComboBox {
                 id: tintBox
-                Kirigami.FormData.label: i18n("Tint:")
-                model: [i18n("Clear"), i18n("Frost"), i18n("Smoke"), i18n("Theme color"), i18n("Custom")]
+                Kirigami.FormData.label: tr("Tint:")
+                model: [tr("Clear"), tr("Frost"), tr("Smoke"), tr("Theme color"), tr("Custom")]
             }
             KQC.ColorButton {
                 id: tintColor
-                Kirigami.FormData.label: i18n("Custom color:")
+                Kirigami.FormData.label: tr("Custom color:")
                 enabled: tintBox.currentIndex === 4
                 showAlphaChannel: false
             }
             QQC2.Label {
-                text: i18n("Tint applies to Glass, Liquid glass and Atmosphere")
+                text: tr("Tint applies to Glass, Liquid glass and Atmosphere")
                 opacity: 0.7
                 font: Kirigami.Theme.smallFont
             }
 
-            Kirigami.Separator { Kirigami.FormData.isSection: true; Kirigami.FormData.label: i18n("SHAPE AND DEPTH") }
+            Kirigami.Separator { Kirigami.FormData.isSection: true; Kirigami.FormData.label: tr("SHAPE AND DEPTH") }
 
             RowLayout {
-                Kirigami.FormData.label: i18n("Card opacity:")
+                Kirigami.FormData.label: tr("Card opacity:")
                 QQC2.Slider { id: opacSlider; from: 10; to: 100; stepSize: 5; Layout.preferredWidth: Kirigami.Units.gridUnit * 12 }
                 QQC2.Label { text: Math.round(opacSlider.value) + "%"; Layout.minimumWidth: Kirigami.Units.gridUnit * 2.5 }
             }
             RowLayout {
-                Kirigami.FormData.label: i18n("Corner radius:")
+                Kirigami.FormData.label: tr("Corner radius:")
                 QQC2.Slider { id: radSlider; from: 0; to: 40; stepSize: 1; Layout.preferredWidth: Kirigami.Units.gridUnit * 12 }
                 QQC2.Label { text: Math.round(radSlider.value) + " px"; Layout.minimumWidth: Kirigami.Units.gridUnit * 2.5 }
             }
             QQC2.ComboBox {
                 id: shadowBox
-                Kirigami.FormData.label: i18n("Shadow:")
-                model: [i18n("None"), i18n("Soft"), i18n("Lifted")]
+                Kirigami.FormData.label: tr("Shadow:")
+                model: [tr("None"), tr("Soft"), tr("Lifted")]
             }
             QQC2.Switch {
                 id: edgeSwitch
-                Kirigami.FormData.label: i18n("Glass edge:")
+                Kirigami.FormData.label: tr("Glass edge:")
             }
 
-            Kirigami.Separator { Kirigami.FormData.isSection: true; Kirigami.FormData.label: i18n(i18n(i18n("COMPOSITOR"))) }
+            Kirigami.Separator { Kirigami.FormData.isSection: true; Kirigami.FormData.label: tr(tr(tr("COMPOSITOR"))) }
 
             QQC2.Switch {
                 id: compSwitch
-                Kirigami.FormData.label: i18n("Compositor glass:")
+                Kirigami.FormData.label: tr("Compositor glass:")
             }
             QQC2.Label {
-                text: i18n("Asks Plasma for its translucent background with native blur (KWin). Requires the Blur effect to be enabled.")
+                text: tr("Asks Plasma for its translucent background with native blur (KWin). Requires the Blur effect to be enabled.")
                 wrapMode: Text.WordWrap
                 Layout.maximumWidth: Kirigami.Units.gridUnit * 24
                 opacity: 0.7

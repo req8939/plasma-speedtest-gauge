@@ -5,9 +5,20 @@ import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.components as PlasmaComponents
 import org.kde.plasma.plasma5support as Plasma5Support
 import org.kde.kirigami as Kirigami
+import "strings.js" as S
 
 PlasmoidItem {
     id: root
+
+    readonly property string lang: {
+        var i = Plasmoid.configuration.language
+        if (i === 1) return "en"
+        if (i === 2) return "es"
+        if (i === 3) return "pt_BR"
+        var n = Qt.locale().name
+        return n.indexOf("es") === 0 ? "es" : (n.indexOf("pt") === 0 ? "pt_BR" : "en")
+    }
+    function tr(s) { return S.tr(lang, s) }
 
     // ---- Colores ----
     readonly property var palettes: [
@@ -57,7 +68,7 @@ PlasmoidItem {
     property string down: "--"
     property string up: "--"
     property string ping: "--"
-    property string server: i18n("Ready to test")
+    property string server: tr("Ready to test")
     property string lastTime: ""
     property bool running: false
 
@@ -134,7 +145,7 @@ PlasmoidItem {
                 root.lastTime = Qt.formatTime(new Date(), "hh:mm")
             } catch (e) {
                 root.down = root.up = root.ping = "err"
-                root.server = out.split("\n").pop() || i18n("No response")
+                root.server = out.split("\n").pop() || tr("No response")
             }
             root.running = false
             disconnectSource(source)
@@ -146,7 +157,7 @@ PlasmoidItem {
         running = true
         downNum = 0; upNum = 0; pingNum = -1
         down = "0.0"; up = "0.0"; ping = "--"
-        server = i18n("Connecting...")
+        server = tr("Connecting...")
         var bin = "$HOME/.local/bin/ookla-speedtest -f jsonl --accept-license --accept-gdpr"
         if (serverId !== "") bin += " -s " + serverId
         var f = outFile
@@ -273,7 +284,7 @@ PlasmoidItem {
                     Gauge {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        title: "⬇ " + i18n("DOWNLOAD")
+                        title: "⬇ " + tr("DOWNLOAD")
                         value: root.downNum / root.maxSpeed
                         valueText: root.down
                         colorA: root.cCyan
@@ -283,7 +294,7 @@ PlasmoidItem {
                     Gauge {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        title: "⬆ " + i18n("UPLOAD")
+                        title: "⬆ " + tr("UPLOAD")
                         value: root.upNum / root.maxSpeed
                         valueText: root.up
                         colorA: root.cOrange
@@ -334,7 +345,7 @@ PlasmoidItem {
                     PlasmaComponents.Label {
                         id: btnLabel
                         anchors.centerIn: parent
-                        text: root.running ? i18n("Testing...") : "⟳  " + i18n("Start test")
+                        text: root.running ? tr("Testing...") : "⟳  " + tr("Start test")
                         color: root.cDark
                         font.bold: true
                     }
