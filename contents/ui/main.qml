@@ -10,6 +10,73 @@ import "strings.js" as S
 PlasmoidItem {
     id: root
     property bool showSettings: false
+    Plasmoid.contextualActions: [
+        PlasmaCore.Action {
+            text: root.tr("Settings")
+            icon.name: "configure"
+            onTriggered: root.showSettings = !root.showSettings
+        },
+        PlasmaCore.Action {
+            text: "🌐  Auto / Automático"
+            checkable: true
+            checked: root.cfg.language === 0
+            onTriggered: root.cfg.language = 0
+        },
+        PlasmaCore.Action {
+            text: "🌐  English"
+            checkable: true
+            checked: root.cfg.language === 1
+            onTriggered: root.cfg.language = 1
+        },
+        PlasmaCore.Action {
+            text: "🌐  Español"
+            checkable: true
+            checked: root.cfg.language === 2
+            onTriggered: root.cfg.language = 2
+        },
+        PlasmaCore.Action {
+            text: "🌐  Português (Brasil)"
+            checkable: true
+            checked: root.cfg.language === 3
+            onTriggered: root.cfg.language = 3
+        },
+        PlasmaCore.Action {
+            text: "🎨  " + root.tr("Req8939 (blue · cyan · orange)")
+            checkable: true
+            checked: root.cfg.theme === 0
+            onTriggered: root.cfg.theme = 0
+        },
+        PlasmaCore.Action {
+            text: "🎨  " + root.tr("Neon magenta")
+            checkable: true
+            checked: root.cfg.theme === 1
+            onTriggered: root.cfg.theme = 1
+        },
+        PlasmaCore.Action {
+            text: "🎨  " + root.tr("Amazonas (green · yellow)")
+            checkable: true
+            checked: root.cfg.theme === 2
+            onTriggered: root.cfg.theme = 2
+        },
+        PlasmaCore.Action {
+            text: "🎨  " + root.tr("Fire")
+            checkable: true
+            checked: root.cfg.theme === 3
+            onTriggered: root.cfg.theme = 3
+        },
+        PlasmaCore.Action {
+            text: "🎨  " + root.tr("Ice")
+            checkable: true
+            checked: root.cfg.theme === 4
+            onTriggered: root.cfg.theme = 4
+        },
+        PlasmaCore.Action {
+            text: "🎨  " + root.tr("Custom")
+            checkable: true
+            checked: root.cfg.theme === 5
+            onTriggered: root.cfg.theme = 5
+        }
+    ]
     readonly property var cfg: Plasmoid.configuration
 
     readonly property string lang: {
