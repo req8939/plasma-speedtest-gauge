@@ -10,7 +10,7 @@
             }
         ],
         "Category": "System Information",
-        "Version": "1.2.0",
+        "Version": "1.3.0",
         "License": "GPL-2.0-or-later",
         "Website": "https://github.com/req8939/plasma-speedtest-gauge",
         "Name[es]": "Speedtest Gauge",
