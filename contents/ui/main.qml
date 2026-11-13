@@ -57,7 +57,7 @@ PlasmoidItem {
     property string down: "--"
     property string up: "--"
     property string ping: "--"
-    property string server: "Listo para medir"
+    property string server: i18n("Ready to test")
     property string lastTime: ""
     property bool running: false
 
@@ -134,7 +134,7 @@ PlasmoidItem {
                 root.lastTime = Qt.formatTime(new Date(), "hh:mm")
             } catch (e) {
                 root.down = root.up = root.ping = "err"
-                root.server = out.split("\n").pop() || "sin respuesta"
+                root.server = out.split("\n").pop() || i18n("No response")
             }
             root.running = false
             disconnectSource(source)
@@ -146,7 +146,7 @@ PlasmoidItem {
         running = true
         downNum = 0; upNum = 0; pingNum = -1
         down = "0.0"; up = "0.0"; ping = "--"
-        server = "conectando..."
+        server = i18n("Connecting...")
         var bin = "$HOME/.local/bin/ookla-speedtest -f jsonl --accept-license --accept-gdpr"
         if (serverId !== "") bin += " -s " + serverId
         var f = outFile
@@ -273,7 +273,7 @@ PlasmoidItem {
                     Gauge {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        title: "⬇ BAJADA"
+                        title: "⬇ " + i18n("DOWNLOAD")
                         value: root.downNum / root.maxSpeed
                         valueText: root.down
                         colorA: root.cCyan
@@ -283,7 +283,7 @@ PlasmoidItem {
                     Gauge {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        title: "⬆ SUBIDA"
+                        title: "⬆ " + i18n("UPLOAD")
                         value: root.upNum / root.maxSpeed
                         valueText: root.up
                         colorA: root.cOrange
@@ -334,7 +334,7 @@ PlasmoidItem {
                     PlasmaComponents.Label {
                         id: btnLabel
                         anchors.centerIn: parent
-                        text: root.running ? "Probando..." : "⟳  Iniciar prueba"
+                        text: root.running ? i18n("Testing...") : "⟳  " + i18n("Start test")
                         color: root.cDark
                         font.bold: true
                     }

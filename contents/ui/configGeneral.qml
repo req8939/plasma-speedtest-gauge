@@ -12,13 +12,13 @@ KCM.SimpleKCM {
     Kirigami.FormLayout {
         QQC2.TextField {
             id: serverField
-            Kirigami.FormData.label: "ID del servidor:"
-            placeholderText: "vacío = automático"
+            Kirigami.FormData.label: i18n("Server ID:")
+            placeholderText: i18n("empty = automatic")
             inputMethodHints: Qt.ImhDigitsOnly
             validator: IntValidator { bottom: 0 }
         }
         QQC2.Label {
-            text: "Para ver IDs: ookla-speedtest -L (ej. 64565 = I-Systems Manaus)"
+            text: i18n("To list IDs: ookla-speedtest -L (e.g. 64565 = I-Systems Manaus)")
             opacity: 0.7
             font: Kirigami.Theme.smallFont
         }
@@ -27,12 +27,12 @@ KCM.SimpleKCM {
 
         QQC2.SpinBox {
             id: maxSpin
-            Kirigami.FormData.label: "Velocidad máxima del medidor:"
+            Kirigami.FormData.label: i18n("Maximum gauge speed:")
             from: 10; to: 10000; stepSize: 10
             editable: true
         }
         QQC2.Label {
-            text: "Mbit/s al que el arco llega al 100%"
+            text: i18n("Mbit/s at which the gauge reaches 100%")
             opacity: 0.7
             font: Kirigami.Theme.smallFont
         }
@@ -41,10 +41,10 @@ KCM.SimpleKCM {
 
         QQC2.SpinBox {
             id: autoSpin
-            Kirigami.FormData.label: "Medir automáticamente cada:"
+            Kirigami.FormData.label: i18n("Automatically test every:")
             from: 0; to: 1440; stepSize: 5
             editable: true
-            textFromValue: function(v) { return v === 0 ? "Nunca (manual)" : v + " min" }
+            textFromValue: function(v) { return v === 0 ? i18n("Never (manual)") : v + " min" }
         }
     }
 }

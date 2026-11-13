@@ -15,7 +15,7 @@ KCM.SimpleKCM {
     property alias cfg_glassTint: tintBox.currentIndex
     property alias cfg_customGlass: tintColor.color
 
-    readonly property var names: ["Tinte", "Cristal", "Cristal líquido", "Sólido", "Atmósfera"]
+    readonly property var names: [i18n("Tint"), i18n("Glass"), i18n("Liquid glass"), i18n("Solid"), i18n("Atmosphere")]
     readonly property var fills: [
         Qt.rgba(0.10, 0.10, 0.28, 0.80), Qt.rgba(1, 1, 1, 0.14), Qt.rgba(1, 1, 1, 0.22),
         Qt.rgba(0.08, 0.09, 0.12, 1.0), Qt.rgba(0.10, 0.55, 0.50, 0.65)]
@@ -27,7 +27,7 @@ KCM.SimpleKCM {
         spacing: Kirigami.Units.largeSpacing
 
         QQC2.Label {
-            text: "MATERIAL"
+            text: i18n(i18n("MATERIAL"))
             font.bold: true
             Layout.alignment: Qt.AlignHCenter
             Layout.topMargin: Kirigami.Units.largeSpacing
@@ -78,55 +78,55 @@ KCM.SimpleKCM {
         Kirigami.FormLayout {
             Layout.fillWidth: true
 
-            Kirigami.Separator { Kirigami.FormData.isSection: true; Kirigami.FormData.label: "TINTE DEL CRISTAL" }
+            Kirigami.Separator { Kirigami.FormData.isSection: true; Kirigami.FormData.label: i18n("GLASS TINT") }
 
             QQC2.ComboBox {
                 id: tintBox
-                Kirigami.FormData.label: "Tinte:"
-                model: ["Claro", "Escarcha", "Humo", "Color del tema", "Personalizado"]
+                Kirigami.FormData.label: i18n("Tint:")
+                model: [i18n("Clear"), i18n("Frost"), i18n("Smoke"), i18n("Theme color"), i18n("Custom")]
             }
             KQC.ColorButton {
                 id: tintColor
-                Kirigami.FormData.label: "Color personalizado:"
+                Kirigami.FormData.label: i18n("Custom color:")
                 enabled: tintBox.currentIndex === 4
                 showAlphaChannel: false
             }
             QQC2.Label {
-                text: "El tinte se aplica a Cristal, Cristal líquido y Atmósfera"
+                text: i18n("Tint applies to Glass, Liquid glass and Atmosphere")
                 opacity: 0.7
                 font: Kirigami.Theme.smallFont
             }
 
-            Kirigami.Separator { Kirigami.FormData.isSection: true; Kirigami.FormData.label: "FORMA Y PROFUNDIDAD" }
+            Kirigami.Separator { Kirigami.FormData.isSection: true; Kirigami.FormData.label: i18n("SHAPE AND DEPTH") }
 
             RowLayout {
-                Kirigami.FormData.label: "Opacidad de la tarjeta:"
+                Kirigami.FormData.label: i18n("Card opacity:")
                 QQC2.Slider { id: opacSlider; from: 10; to: 100; stepSize: 5; Layout.preferredWidth: Kirigami.Units.gridUnit * 12 }
                 QQC2.Label { text: Math.round(opacSlider.value) + "%"; Layout.minimumWidth: Kirigami.Units.gridUnit * 2.5 }
             }
             RowLayout {
-                Kirigami.FormData.label: "Radio de esquinas:"
+                Kirigami.FormData.label: i18n("Corner radius:")
                 QQC2.Slider { id: radSlider; from: 0; to: 40; stepSize: 1; Layout.preferredWidth: Kirigami.Units.gridUnit * 12 }
                 QQC2.Label { text: Math.round(radSlider.value) + " px"; Layout.minimumWidth: Kirigami.Units.gridUnit * 2.5 }
             }
             QQC2.ComboBox {
                 id: shadowBox
-                Kirigami.FormData.label: "Sombra:"
-                model: ["Ninguna", "Suave", "Elevada"]
+                Kirigami.FormData.label: i18n("Shadow:")
+                model: [i18n("None"), i18n("Soft"), i18n("Lifted")]
             }
             QQC2.Switch {
                 id: edgeSwitch
-                Kirigami.FormData.label: "Borde de cristal:"
+                Kirigami.FormData.label: i18n("Glass edge:")
             }
 
-            Kirigami.Separator { Kirigami.FormData.isSection: true; Kirigami.FormData.label: "COMPOSITOR" }
+            Kirigami.Separator { Kirigami.FormData.isSection: true; Kirigami.FormData.label: i18n(i18n("COMPOSITOR")) }
 
             QQC2.Switch {
                 id: compSwitch
-                Kirigami.FormData.label: "Cristal del compositor:"
+                Kirigami.FormData.label: i18n("Compositor glass:")
             }
             QQC2.Label {
-                text: "Pide a Plasma su fondo translúcido con desenfoque nativo (KWin). Requiere el efecto Desenfoque activo."
+                text: i18n("Asks Plasma for its translucent background with native blur (KWin). Requires the Blur effect to be enabled.")
                 wrapMode: Text.WordWrap
                 Layout.maximumWidth: Kirigami.Units.gridUnit * 24
                 opacity: 0.7

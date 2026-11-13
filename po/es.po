@@ -1,0 +1,161 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Ready to test"
+msgstr "Listo para medir"
+
+msgid "Connecting..."
+msgstr "Conectando..."
+
+msgid "No response"
+msgstr "Sin respuesta"
+
+msgid "Testing..."
+msgstr "Probando..."
+
+msgid "Server ID:"
+msgstr "ID del servidor:"
+
+msgid "empty = automatic"
+msgstr "vacío = automático"
+
+msgid "To list IDs: ookla-speedtest -L (e.g. 64565 = I-Systems Manaus)"
+msgstr "Para ver IDs: ookla-speedtest -L (ej. 64565 = I-Systems Manaus)"
+
+msgid "Maximum gauge speed:"
+msgstr "Velocidad máxima del medidor:"
+
+msgid "Mbit/s at which the gauge reaches 100%"
+msgstr "Mbit/s al que el arco llega al 100%"
+
+msgid "Automatically test every:"
+msgstr "Medir automáticamente cada:"
+
+msgid "Never (manual)"
+msgstr "Nunca (manual)"
+
+msgid "MATERIAL"
+msgstr "MATERIAL"
+
+msgid "Tint"
+msgstr "Tinte"
+
+msgid "Glass"
+msgstr "Cristal"
+
+msgid "Liquid glass"
+msgstr "Cristal líquido"
+
+msgid "Solid"
+msgstr "Sólido"
+
+msgid "Atmosphere"
+msgstr "Atmósfera"
+
+msgid "GLASS TINT"
+msgstr "TINTE DEL CRISTAL"
+
+msgid "Tint:"
+msgstr "Tinte:"
+
+msgid "Clear"
+msgstr "Claro"
+
+msgid "Frost"
+msgstr "Escarcha"
+
+msgid "Smoke"
+msgstr "Humo"
+
+msgid "Theme color"
+msgstr "Color del tema"
+
+msgid "Custom"
+msgstr "Personalizado"
+
+msgid "Custom color:"
+msgstr "Color personalizado:"
+
+msgid "Tint applies to Glass, Liquid glass and Atmosphere"
+msgstr "El tinte se aplica a Cristal, Cristal líquido y Atmósfera"
+
+msgid "SHAPE AND DEPTH"
+msgstr "FORMA Y PROFUNDIDAD"
+
+msgid "Card opacity:"
+msgstr "Opacidad de la tarjeta:"
+
+msgid "Corner radius:"
+msgstr "Radio de esquinas:"
+
+msgid "Shadow:"
+msgstr "Sombra:"
+
+msgid "None"
+msgstr "Ninguna"
+
+msgid "Soft"
+msgstr "Suave"
+
+msgid "Lifted"
+msgstr "Elevada"
+
+msgid "Glass edge:"
+msgstr "Borde de cristal:"
+
+msgid "COMPOSITOR"
+msgstr "COMPOSITOR"
+
+msgid "Compositor glass:"
+msgstr "Cristal del compositor:"
+
+msgid "Asks Plasma for its translucent background with native blur (KWin). Requires the Blur effect to be enabled."
+msgstr "Pide a Plasma su fondo translúcido con desenfoque nativo (KWin). Requiere el efecto Desenfoque activo."
+
+msgid "COLORS"
+msgstr "COLORES"
+
+msgid "Color theme:"
+msgstr "Tema de color:"
+
+msgid "Req8939 (blue · cyan · orange)"
+msgstr "Req8939 (azul · cian · naranja)"
+
+msgid "Neon magenta"
+msgstr "Neón magenta"
+
+msgid "Amazonas (green · yellow)"
+msgstr "Amazonas (verde · amarillo)"
+
+msgid "Fire"
+msgstr "Fuego"
+
+msgid "Ice"
+msgstr "Hielo"
+
+msgid "Preview:"
+msgstr "Vista previa:"
+
+msgid "Download (light):"
+msgstr "Bajada (claro):"
+
+msgid "Download (dark):"
+msgstr "Bajada (oscuro):"
+
+msgid "Upload (main):"
+msgstr "Subida (principal):"
+
+msgid "Upload (gradient):"
+msgstr "Subida (degradado):"
+
+msgid "DOWNLOAD"
+msgstr "BAJADA"
+
+msgid "UPLOAD"
+msgstr "SUBIDA"
+
+msgid "Start test"
+msgstr "Iniciar prueba"
