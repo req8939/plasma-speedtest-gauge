@@ -27,7 +27,7 @@ KCM.SimpleKCM {
         spacing: Kirigami.Units.largeSpacing
 
         QQC2.Label {
-            text: i18n(i18n("MATERIAL"))
+            text: i18n(i18n(i18n("MATERIAL")))
             font.bold: true
             Layout.alignment: Qt.AlignHCenter
             Layout.topMargin: Kirigami.Units.largeSpacing
@@ -119,7 +119,7 @@ KCM.SimpleKCM {
                 Kirigami.FormData.label: i18n("Glass edge:")
             }
 
-            Kirigami.Separator { Kirigami.FormData.isSection: true; Kirigami.FormData.label: i18n(i18n("COMPOSITOR")) }
+            Kirigami.Separator { Kirigami.FormData.isSection: true; Kirigami.FormData.label: i18n(i18n(i18n("COMPOSITOR"))) }
 
             QQC2.Switch {
                 id: compSwitch

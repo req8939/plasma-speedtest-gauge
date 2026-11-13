@@ -155,7 +155,7 @@ msgid "DOWNLOAD"
 msgstr "DOWNLOAD"
 
 msgid "UPLOAD"
-msgstr "UPLOAD"
+msgstr "CARREGAR"
 
 msgid "Start test"
 msgstr "Iniciar teste"
