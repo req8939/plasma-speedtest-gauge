@@ -99,7 +99,7 @@ The widget is written in English and translated through a plain dictionary in `c
 To add or fix a translation:
 
 1. Open `contents/ui/strings.js`.
-2. Copy the `"es"` block, rename it to your language code (e.g. `"fr"`) and translate the values on the right. Keep the English text on the left exactly as it is.
+2. Copy the `"es"` block, rename it to your language code (e.g. `"de"`) and translate the values on the right. Keep the English text on the left exactly as it is.
 3. Open a pull request, or an issue with your translated block and I will add it.
 
 Corrections to existing translations are very welcome.
