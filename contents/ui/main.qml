@@ -77,7 +77,7 @@ PlasmoidItem {
 
     Plasmoid.backgroundHints: Plasmoid.configuration.compositorGlass
         ? PlasmaCore.Types.DefaultBackground : PlasmaCore.Types.NoBackground
-    Plasmoid.icon: "network-wireless"
+    Plasmoid.icon: "speedometer"
     toolTipMainText: "Speedtest"
     toolTipSubText: "↓ " + down + "  ↑ " + up + " Mbit/s  ping " + ping + " ms"
 
@@ -168,7 +168,7 @@ PlasmoidItem {
 
     compactRepresentation: MouseArea {
         onClicked: root.expanded = !root.expanded
-        Kirigami.Icon { anchors.fill: parent; source: "network-wireless" }
+        Kirigami.Icon { anchors.fill: parent; source: "speedometer"; fallback: "network-wireless" }
     }
 
     fullRepresentation: Item {
