@@ -8,6 +8,8 @@ Item {
     property real value: 0            // 0..1
     property string valueText: "--"
     property string title: ""
+    property string iconName: ""
+    property string iconFallback: ""
     property color colorA: "#27D0F9"
     property color colorB: "#0882D3"
     property bool busy: false
@@ -48,15 +50,27 @@ Item {
 
     ColumnLayout {
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: 6
         spacing: 0
-        PlasmaComponents.Label {
-            text: g.title
-            color: g.colorA
-            font.bold: true
-            font.letterSpacing: 2
-            font.pointSize: Kirigami.Theme.defaultFont.pointSize * 0.65
+
+        RowLayout {
             Layout.alignment: Qt.AlignHCenter
+            spacing: 4
+            Kirigami.Icon {
+                visible: g.iconName !== ""
+                source: g.iconName
+                fallback: g.iconFallback
+                isMask: true
+                color: g.colorA
+                Layout.preferredWidth: 20
+                Layout.preferredHeight: 20
+            }
+            PlasmaComponents.Label {
+                text: g.title
+                color: g.colorA
+                font.bold: true
+                font.letterSpacing: 2
+                font.pointSize: Kirigami.Theme.defaultFont.pointSize * 0.7
+            }
         }
         PlasmaComponents.Label {
             id: num

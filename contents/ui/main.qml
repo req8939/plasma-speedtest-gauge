@@ -292,7 +292,9 @@ PlasmoidItem {
                     Gauge {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        title: "⬇ " + tr("DOWNLOAD")
+                        title: tr("DOWNLOAD")
+                        iconName: "arrow-down"
+                        iconFallback: "arrow-down"
                         value: root.downNum / root.maxSpeed
                         valueText: root.down
                         colorA: root.cCyan
@@ -302,7 +304,9 @@ PlasmoidItem {
                     Gauge {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        title: "⬆ " + tr("UPLOAD")
+                        title: tr("UPLOAD")
+                        iconName: "arrow-up"
+                        iconFallback: "arrow-up"
                         value: root.upNum / root.maxSpeed
                         valueText: root.up
                         colorA: root.cOrange
@@ -343,19 +347,32 @@ PlasmoidItem {
 
                 Rectangle {
                     Layout.alignment: Qt.AlignHCenter
-                    implicitWidth: btnLabel.implicitWidth + 40
-                    implicitHeight: btnLabel.implicitHeight + 12
+                    implicitWidth: btnRow.implicitWidth + 40
+                    implicitHeight: btnRow.implicitHeight + 12
                     radius: height / 2
                     color: root.running ? "#4a4a4a" : (area.containsMouse ? root.cCyan : root.cOrange)
                     Behavior on color { ColorAnimation { duration: 150 } }
                     scale: area.pressed ? 0.96 : 1
                     Behavior on scale { NumberAnimation { duration: 80 } }
-                    PlasmaComponents.Label {
-                        id: btnLabel
+                    Row {
+                        id: btnRow
                         anchors.centerIn: parent
-                        text: root.running ? tr("Testing...") : "⟳  " + tr("Start test")
-                        color: root.cDark
-                        font.bold: true
+                        spacing: 8
+                        Kirigami.Icon {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: 16; height: 16
+                            source: "view-refresh"
+                            fallback: "reload"
+                            isMask: true
+                            color: root.cDark
+                        }
+                        PlasmaComponents.Label {
+                            id: btnLabel
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: root.running ? tr("Testing...") : tr("Start test")
+                            color: root.cDark
+                            font.bold: true
+                        }
                     }
                     MouseArea {
                         id: area
