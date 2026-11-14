@@ -93,6 +93,7 @@ To add or fix a translation:
 
 1. Open `contents/ui/strings.js`.
 2. Copy the `"es"` block, rename it to your language code (e.g. `"en"`) and translate the values on the right. Keep the English text on the left exactly as it is.
+   (English is the source language, so it needs no block; any other code works the same way, e.g. `"fr"`, `"de"`, `"it"`.)
 3. Open a pull request, or an issue with your translated block and I will add it.
 
 Corrections to existing translations are very welcome.
