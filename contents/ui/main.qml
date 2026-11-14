@@ -327,7 +327,14 @@ PlasmoidItem {
                         id: pingRow
                         anchors.centerIn: parent
                         spacing: 8
-                        Rectangle { width: 8; height: 8; radius: 4; color: root.pingColor }
+                        Kirigami.Icon {
+                            Layout.preferredWidth: 14
+                            Layout.preferredHeight: 14
+                            source: "chronometer"
+                            fallback: "clock"
+                            isMask: true
+                            color: root.pingColor
+                        }
                         PlasmaComponents.Label {
                             text: "PING  " + root.ping + " ms"
                             color: root.cWhite
@@ -336,13 +343,27 @@ PlasmoidItem {
                     }
                 }
 
-                PlasmaComponents.Label {
-                    text: "🌐 " + root.server + (root.lastTime ? "  ·  " + root.lastTime : "")
-                    color: root.cWhite
-                    opacity: 0.65
-                    elide: Text.ElideRight
-                    horizontalAlignment: Text.AlignHCenter
+                RowLayout {
                     Layout.fillWidth: true
+                    spacing: 6
+                    Item { Layout.fillWidth: true }
+                    Kirigami.Icon {
+                        Layout.preferredWidth: 16
+                        Layout.preferredHeight: 16
+                        source: "globe-symbolic"
+                        fallback: "applications-internet"
+                        isMask: true
+                        color: root.cWhite
+                        opacity: 0.65
+                    }
+                    PlasmaComponents.Label {
+                        text: root.server + (root.lastTime ? "  ·  " + root.lastTime : "")
+                        color: root.cWhite
+                        opacity: 0.65
+                        elide: Text.ElideRight
+                        Layout.maximumWidth: cardWrap.width - 60
+                    }
+                    Item { Layout.fillWidth: true }
                 }
 
                 Rectangle {
