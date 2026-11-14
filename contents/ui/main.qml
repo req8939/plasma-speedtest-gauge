@@ -144,8 +144,11 @@ PlasmoidItem {
                 root.server = j.server.name + " — " + j.server.location
                 root.lastTime = Qt.formatTime(new Date(), "hh:mm")
             } catch (e) {
-                root.down = root.up = root.ping = "err"
-                root.server = out.split("\n").pop() || tr("No response")
+                var missing = out.indexOf("NO_OOKLA") >= 0
+                root.down = root.up = root.ping = missing ? "--" : "err"
+                root.server = missing
+                    ? tr("Ookla Speedtest CLI not found. See the README.")
+                    : (out.split("\n").pop() || tr("No response"))
             }
             root.running = false
             disconnectSource(source)
@@ -158,11 +161,16 @@ PlasmoidItem {
         downNum = 0; upNum = 0; pingNum = -1
         down = "0.0"; up = "0.0"; ping = "--"
         server = tr("Connecting...")
-        var bin = "$HOME/.local/bin/ookla-speedtest -f jsonl --accept-license --accept-gdpr"
-        if (serverId !== "") bin += " -s " + serverId
+
+        // Busca el binario de Ookla en varias rutas y comprueba que de verdad es el de Ookla
+        var find = "B=''; for b in \"$HOME/.local/bin/ookla-speedtest\" /usr/bin/speedtest /usr/local/bin/speedtest \"$(command -v speedtest)\"; do [ -x \"$b\" ] && \"$b\" --version 2>&1 | grep -qi ookla && { B=\"$b\"; break; }; done; "
+        var args = " -f jsonl --accept-license --accept-gdpr"
+        var sid = String(serverId).replace(/[^0-9]/g, "")
+        if (sid !== "") args += " -s " + sid
         var f = outFile
-        var cmd = ": > " + f + "; " + bin + " > " + f + " 2>" + f + ".err; "
-                + "grep '\"type\":\"result\"' " + f + " || tail -n 1 " + f + ".err"
+        var cmd = find + "if [ -z \"$B\" ]; then echo NO_OOKLA; else : > " + f
+                + "; \"$B\"" + args + " > " + f + " 2>" + f + ".err; "
+                + "grep '\"type\":\"result\"' " + f + " || tail -n 1 " + f + ".err; fi"
         exec.connectSource(cmd)
     }
 

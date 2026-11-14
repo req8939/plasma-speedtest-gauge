@@ -56,7 +56,8 @@ var D = {
   "Start test": "Iniciar prueba",
   "Language:": "Idioma:",
   "General": "General",
-  "Card": "Tarjeta"
+  "Card": "Tarjeta",
+  "Ookla Speedtest CLI not found. See the README.": "No se encontró el cliente Speedtest de Ookla. Mira el README."
  },
  "pt_BR": {
   "Ready to test": "Pronto para medir",
@@ -113,7 +114,8 @@ var D = {
   "Start test": "Iniciar teste",
   "Language:": "Idioma:",
   "General": "Geral",
-  "Card": "Cartão"
+  "Card": "Cartão",
+  "Ookla Speedtest CLI not found. See the README.": "Cliente Speedtest da Ookla não encontrado. Veja o README."
  }
 };
 
