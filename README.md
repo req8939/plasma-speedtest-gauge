@@ -92,6 +92,20 @@ The first run accepts the Ookla license automatically.
 
 Then right click the desktop → *Add Widgets…* → **Speedtest Gauge**.
 
+## 🌍 Translations
+
+The widget is written in English and translated through a plain dictionary in `contents/ui/strings.js`. Currently available: **English** (source), **Español** and **Português (Brasil)**. The language can be set to *Auto* (follows the system) or forced in the settings.
+
+To add or fix a translation:
+
+1. Open `contents/ui/strings.js`.
+2. Copy the `"es"` block, rename it to your language code (e.g. `"fr"`) and translate the values on the right. Keep the English text on the left exactly as it is.
+3. Open a pull request, or an issue with your translated block and I will add it.
+
+Corrections to existing translations are very welcome.
+
+> Thanks to [@Sadi58](https://github.com/Sadi58) for the original English translations and for the multilingual suggestion.
+
 ## 📄 License
 
 GPL-2.0-or-later
