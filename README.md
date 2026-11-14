@@ -16,6 +16,23 @@
 
 ---
 
+## 🚀 Install
+
+**Option 1: one command** (installs the widget and the Ookla Speedtest CLI it needs)
+
+    git clone https://github.com/req8939/plasma-speedtest-gauge.git
+    cd plasma-speedtest-gauge
+    ./install.sh
+
+**Option 2: KDE Store.** Right click the desktop → *Add Widgets…* → *Get New Widgets…* → search **Speedtest Gauge**. Then install the Ookla CLI (see [Requirements](#-requirements)).
+
+**Option 3: from file.** Download `req8939.speedtest.plasmoid` from the [latest release](https://github.com/req8939/plasma-speedtest-gauge/releases/latest) and run:
+
+    kpackagetool6 -t Plasma/Applet -i req8939.speedtest.plasmoid
+
+Then right click the desktop → *Add Widgets…* → **Speedtest Gauge**. To remove it: `./install.sh --uninstall`.
+
+
 ## ✨ Features
 
 - **Live gauges**: download and upload fill in real time while the test runs
@@ -57,15 +74,7 @@ In the **General** tab:
 | **Gauge max speed** | The speed (Mbit/s) at which the arc is 100% full. Set it close to your plan speed |
 | **Auto test every** | Run a test automatically every X minutes. `0` = manual only |
 
-## 🚀 Quick install
-
-    git clone https://github.com/req8939/plasma-speedtest-gauge.git
-    cd plasma-speedtest-gauge
-    ./install.sh
-
-The script installs the widget and downloads the official Ookla Speedtest CLI to `~/.local/bin/ookla-speedtest` if it is missing. To remove it: `./install.sh --uninstall`.
-
-## 📦 Manual requirements
+## 📦 Requirements
 
 The widget uses the **official Ookla Speedtest CLI** (not `speedtest-cli`). Its license does not allow redistribution, so install it yourself:
 
@@ -75,22 +84,6 @@ The widget uses the **official Ookla Speedtest CLI** (not `speedtest-cli`). Its 
     mv speedtest ~/.local/bin/ookla-speedtest
 
 The first run accepts the Ookla license automatically.
-
-## 🚀 Install
-
-**From the KDE Store:** right click the desktop → *Add Widgets…* → *Get New Widgets…* → search **Speedtest Gauge**.
-
-**From file:**
-
-    kpackagetool6 -t Plasma/Applet -i req8939.speedtest.plasmoid
-
-**From source:**
-
-    git clone https://github.com/req8939/plasma-speedtest-gauge.git
-    cd plasma-speedtest-gauge
-    kpackagetool6 -t Plasma/Applet -i .
-
-Then right click the desktop → *Add Widgets…* → **Speedtest Gauge**.
 
 ## 🌍 Translations
 
